@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>LAB2_ADC_CPU1_Mine</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.cdt.managedbuilder.core.genmakebuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.cdt.managedbuilder.core.ScannerConfigBuilder</name>
+			<triggers>full,incremental,</triggers>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>com.ti.ccstudio.core.ccsNature</nature>
+		<nature>org.eclipse.cdt.core.cnature</nature>
+		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
+		<nature>org.eclipse.cdt.core.ccnature</nature>
+		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>F2837xD_CpuTimers.c</name>
+			<type>1</type>
+			<locationURI>PARENT-4-PROJECT_LOC/ti/c2000/C2000Ware_5_04_00_00/device_support/f2837xd/common/source/F2837xD_CpuTimers.c</locationURI>
+		</link>
+		<link>
+			<name>driverlib_coff.lib</name>
+			<type>1</type>
+			<locationURI>ORIGINAL_PROJECT_ROOT/device/driverlib/ccs/Debug/driverlib_coff.lib</locationURI>
+		</link>
+	</linkedResources>
+	<variableList>
+		<variable>
+			<name>ORIGINAL_PROJECT_ROOT</name>
+			<value>file:/C:/SyncWorks/System_V700_TR2837xD/LAB/LAB2_ADC_CPU1</value>
+		</variable>
+	</variableList>
+</projectDescription>

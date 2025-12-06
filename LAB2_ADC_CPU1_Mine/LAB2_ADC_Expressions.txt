@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExportImportMemento.1>
+<VarMeta IMemento.internal.id="BackTickerCpu1"/>
+<VarMeta IMemento.internal.id="Xint1IsrTicker"/>
+<VarMeta IMemento.internal.id="SineOutFrequency"/>
+<VarMeta IMemento.internal.id="EPwm2Regs.TBPRD"/>
+<VarMeta IMemento.internal.id="AdcPpbIsrTicker"/>
+<VarMeta IMemento.internal.id="AdcPpbTripHigh"/>
+<VarMeta IMemento.internal.id="AdcPpbTripLow"/>
+<VarMeta IMemento.internal.id="AdcResultA2"/>
+<VarMeta IMemento.internal.id="AdcResultA2OffsetAdjusted"/>
+<VarMeta IMemento.internal.id="AdcResultA12"/>
+<VarMeta IMemento.internal.id="Buffer_A2"/>
+<VarMeta IMemento.internal.id="Buffer_A12"/>
+<VarMeta IMemento.internal.id="BackTickerCpu2"/>
+<VarMeta IMemento.internal.id="sgen1chf"/>
+</ExportImportMemento.1>

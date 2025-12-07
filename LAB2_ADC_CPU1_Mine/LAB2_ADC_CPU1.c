@@ -1,37 +1,11 @@
-// 파일이름	:	LAB2_ADC_CPU1.c
-// 대상장치	:	TR2837xD 트레이닝 키트
-// 파일버전	:	1.00
-// 갱신이력	:	2024-07-24, 버전 1.00
-// 예제설명	:
 
-//************************************************************************************************************************************************************************
-//
-// 본 예제는 TMS320F2837xD PTP 칩이 실장된 TR2837xD 트레이닝 키트를 대상으로 하고 있으며,
-// F2837x 시스템 설계 강좌 2장 ADC, DAC 실습 예제용 메인 소스파일로 사용됩니다.
-//
-// a). Dual-Core로 구성된 TMS320F2837xD 칩의 CPU1 코어용 프로젝트 입니다.
-// b). CPU2가 DAC-A 모듈로 아날로그 정현파 신호를 출력할 수 있도록, DAC-A 모듈의 제어권을 CPU2로 이양합니다.
-//     (DAC 운용 - CPU2 / DAC 출력 신호 주파수 변경 - CPU1)
-// c). ADC-A 모듈을 초기화하고, 아래 채널에 대한 변환 결과를 각각의 버퍼 공간(Array)에 저장합니다.
-//     - Sampling Frequency : 1kHz (EPWM2 SOCA)
-//     - ADCINA2	: TR2837xD 가변 전압출력 회로(Potentiometer)와 연결된 ADC 입력 채널
-//     - ADCINA12	: DAC-A 모듈의 출력이 F2837x 칩 내부적으로 연결된 ADC 입력 채널 (DACOUTA --> ADCINA12 / Internal Connection)
-// d). ADC-A 모듈의 PPB 1번을 초기화하여, SOC0에 의한 ADCINA2 채널의 변환 결과가 미리 설정된 최대/최소 값을 넘을 경우, CPU에 인터럽트를 요청하도록 합니다.
-// e). ADC-A 모듈의 PPB 4번을 초기화하여, SOC1에 의한 ADCINA2 채널의 변환 결과에 Offset을 보정합니다.
-// f). TR2837xD 트레이닝 키트, 로터리 엔코더 노브 스위치의 Active High 신호를 GPIO 23번 포트로 입력 받아 외부 인터럽트 1 회로에 전달하고,
-//     외부 인터럽트 1 회로를 통해 신호의 Rising(Positive) Edge 검출 시, CPU에 인터럽트를 요청하여 CPU1이 CPU2에 전달하는 정현파 주파수 지령 값에 대한
-//     Frequency Sweeping을 시작합니다. (주파수 지령 값 변수 : SineOutFrequency)
-//
-// 예제 폴더에는 Expressions 탭에 관찰할 변수들을 등록하고, Graph 창을 열기 위해 미리 저장된 설정파일이 포함되어 있습니다.
-// --> Expressions 탭 변수 등록용 파일 : LAB2_ADC_Expressions.txt
-// --> Buffer_A2[ ] 배열 데이터 관찰용 시간축 Graph 창 설정 : Buffer_A2_Array_Graph_Properties.graphProp
-// --> Buffer_A12[ ] 배열 데이터에 대한 FFT Magnitude 관찰용 Graph 창 설정 : Buffer_A12_Array_FFTmagGraph_Properties.graphProp
-//
-// 본 예제는 28X 칩 MMR(Memory Mapped Register)을 직접 조작하는 TI의 Bit-Field Approach 기반 코드들과
-// API Driver Library 기반 코드들을 모두 사용할 수 있도록 제작되었습니다. (Driverlib + Bit-Field Example)
-//
-//************************************************************************************************************************************************************************
-
+//TMS320F28377D ADC, DAC 연습 예제입니다. 
+//1) DAC - A, B 모듈로 아날로그 정현파 신호를 출력합니다. (200kHz마다 반복호출 되는 CpuTimer0 인터럽트 이용)
+//2) ADC - A SOC0로 ADCINA0채널로 들어오는 DAC - A출력을 입력받고, ADC - A SOC1으로 ADCINA1채널로 들어오는 DAC - B출력을 입력받습니다.
+//3) ADC - A SOC1 변환 완료 후 ADCINT1 인터럽트를 요청하고 인터럽트가 실행되면 AdcaIsr 함수가 실행됩니다.
+//4) AdcaIsr함수에서는 ADC - A SOC0, ADC - A SOC1 변환 결과를 저장합니다.
+//5) ADC - A 모듈에 변환시작 신호(Start - Of - Conversion)를 전달하기 위한 EPWM2을 사용합니다.
+//* 싱크웍스 LAB2_ADC_CPU1 프로젝트를 변형하였습니다.
 
 // 헤더 파일들
 #include "F28x_Project.h"		// TI 제공 칩-지원 헤더 통합 Include 용 헤더파일
